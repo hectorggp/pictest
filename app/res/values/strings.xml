@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PicTest</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name" translatable="false">PicTest</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
+    
+    <!-- COLORS -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="first_button_back">#D3131A</color>
+    <color name="first_button_pressed">#AF0F14</color>
 
 </resources>

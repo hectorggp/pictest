@@ -1,22 +1,44 @@
 package com.pictest;
 
+import com.auth.plus.PlusAuthActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
-
+public class MainActivity extends _CustomActivity{
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		setWidgets();
+		setFunctionality();
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	protected void setWidgets() {
+		
+	}
+
+	@Override
+	protected void setFunctionality() {
+		findViewById(R.id.BTNGalery).setOnClickListener(this);
+		findViewById(R.id.BTNPayPal).setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		switch(arg0.getId()){
+		case R.id.BTNGalery:
+			startActivity(new Intent(this, PlusAuthActivity.class));
+			break;
+		case R.id.BTNPayPal:
+			Toast.makeText(getApplicationContext(), "PayPal", Toast.LENGTH_LONG).show();
+		}
 	}
 
 }
