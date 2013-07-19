@@ -4,6 +4,10 @@
     <string name="app_name" translatable="false">PicTest</string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="hello_world" translatable="false">Hello world!</string>
+    <string name="app_id">137883406418849</string>
+    
+    <!-- ERRORS -->
+    <string name="ERR_AUTH_FB">Can\'t get your information from facebook session</string>
     
     <!-- COLORS -->
     <color name="black">#000000</color>
