@@ -1,11 +1,13 @@
-package com.auth.plus;
+package com.pictest;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -13,9 +15,8 @@ import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallback
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.PlusClient;
 import com.pictest.R;
-import com.pictest._CustomActivity;
 
-public class PlusAuthActivity extends _CustomActivity implements
+public class PlusAuthActivity extends Activity implements OnClickListener,
 		ConnectionCallbacks, OnConnectionFailedListener {
 
 	private static final int REQUEST_CODE_RESOLVE_ERR = 9000;
@@ -80,12 +81,10 @@ public class PlusAuthActivity extends _CustomActivity implements
 	    }
 	}
 
-	@Override
 	protected void setWidgets() {
 
 	}
 
-	@Override
 	protected void setFunctionality() {
 		findViewById(R.id.sign_in_button).setOnClickListener(this);
 	}

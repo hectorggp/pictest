@@ -1,4 +1,4 @@
-package com.auth.fb;
+package com.pictest;
 
 import java.io.InputStream;
 import java.net.URL;

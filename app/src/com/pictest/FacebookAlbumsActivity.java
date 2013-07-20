@@ -1,4 +1,4 @@
-package com.auth.fb;
+package com.pictest;
 
 import com.pictest.R;
 
