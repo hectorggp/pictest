@@ -33,7 +33,7 @@ public class HttpHelper {
 					Charset.forName("UTF-8")));
 			String jsonText = readAll(rd);
 			Log.d("Json URL", url);
-			Log.d("JSONObject", jsonText);
+			Log.w("JSONObject", jsonText);
 			JSONObject json = new JSONObject(jsonText);
 			return json;
 		} finally {

@@ -2,6 +2,8 @@ package pictest.activities;
 
 import java.util.regex.Pattern;
 
+import pictest.connection.FbConnManager;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -30,6 +32,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		((Button) findViewById(R.id.BTNGalery)).setOnClickListener(this);
 		((Button) findViewById(R.id.BTNPayPal)).setOnClickListener(this);
+		
+		FbConnManager.image = getResources().getDrawable(R.drawable.ic_launcher);
 	}
 
 	private void getAccounts() {

@@ -24,7 +24,6 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
-import com.pictest.FacebookAlbumsActivity;
 import com.pictest.R;
 
 public class FragmentFbSignInActivity extends Fragment implements
@@ -41,7 +40,7 @@ public class FragmentFbSignInActivity extends Fragment implements
 	private ImageView IMVUserPicture;
 	private Button BTNGoToGalery;
 	private String accessToken;
-	SharedPreferencesManager sharedManager;
+	private SharedPreferencesManager sharedManager;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -165,8 +164,12 @@ public class FragmentFbSignInActivity extends Fragment implements
 	public void onClick(View v) {
 		if (v.getId() == R.id.BTNGoToGalery) {
 			Log.d("Galery", "Go to galery");
-			getActivity().startActivity(
-					new Intent(getActivity(), FacebookAlbumsActivity.class));
+			Activity activity = getActivity();
+			if (activity != null)
+				getActivity().startActivity(
+						new Intent(getActivity(), GaleryActivity.class));
+			else
+				Log.e("ERR", "activity is null..???");
 		}
 	}
 }

@@ -1,22 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
-    
-    <ImageView 
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:background="@color/black"
+    android:orientation="vertical"
+    android:padding="3dp" >
+
+    <ImageView
         android:id="@+id/IMVContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" 
-        android:layout_centerHorizontal="true"/>
-    
-    <TextView 
-        android:id="@+id/TXTAlbumName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="ajsdfajs;"
-        android:layout_below="@+id/IMVContent" />
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/LLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/IMVContent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp" 
+        android:background="@color/white"
+        android:paddingBottom="1dp">
+
+        <TextView
+            android:id="@+id/TXTAlbumName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="ajsdfajs;"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/IMVSource"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/LLayout"
+        android:layout_below="@+id/IMVContent"
+        android:src="@drawable/ic_source_fb" />
 
 </RelativeLayout>

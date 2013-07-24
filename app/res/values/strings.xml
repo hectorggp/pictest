@@ -24,5 +24,6 @@
     <color name="first_button_back">#D3131A</color>
     <color name="first_button_pressed">#AF0F14</color>
     <color name="back">#F1F1F1</color>
+    <color name="album_back">#DFDEDE</color>
 
 </resources>
