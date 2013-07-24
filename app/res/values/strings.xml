@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name" translatable="false">PicTest</string>
+    <!-- STRINGS -->
     <string name="action_settings" translatable="false">Settings</string>
-    <string name="hello_world" translatable="false">Hello world!</string>
     <string name="app_id">137883406418849</string>
-    
+    <string name="OAuth_Exception">OAuthException</string>
+    <string name="explore">Explore photos</string>
+
+    <!-- TITLES -->
+    <string name="app_name_title" translatable="false">PicTest</string>
+    <string name="login_facebook_title" translatable="false">Facebook</string>
+    <string name="albums_title" translatable="false">Galery</string>
+
     <!-- ERRORS -->
     <string name="ERR_AUTH_FB">Can\'t get your information from facebook session</string>
-    
+
+    <!-- WARNINGS -->
+    <string name="WRN_NO_ALL_ALBUMS">Did not load all albums\nyou can try again</string>
+
     <!-- COLORS -->
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="first_button_back">#D3131A</color>
     <color name="first_button_pressed">#AF0F14</color>
+    <color name="back">#F1F1F1</color>
 
 </resources>

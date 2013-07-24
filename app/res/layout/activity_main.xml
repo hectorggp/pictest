@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    style="@style/_margin"
-    android:gravity="center_vertical">
+    style="@style/_padding_sides"
+    android:gravity="center">
     
     <Button style="@style/first_button" 
         android:id="@+id/BTNGalery"

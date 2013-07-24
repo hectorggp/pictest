@@ -31,22 +31,22 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	protected void setWidgets() {
-		try {
-			Log.d("key", "1ra");
-	        PackageInfo info = getPackageManager().getPackageInfo("com",
-	                PackageManager.GET_SIGNATURES);
-	        Log.d("key", "2da");
-	        for (Signature signature : info.signatures) {
-	            MessageDigest md = MessageDigest.getInstance("SHA");
-	            md.update(signature.toByteArray());
-	            Log.d("YOURHASH KEY:",
-	                    Base64.encodeToString(md.digest(), Base64.DEFAULT));
-	        }
-	    } catch (NameNotFoundException e) {
-	    	e.printStackTrace();
-	    } catch (NoSuchAlgorithmException e) {
-	    	e.printStackTrace();
-	    }
+//		try {
+//			Log.d("key", "1ra");
+//	        PackageInfo info = getPackageManager().getPackageInfo("com",
+//	                PackageManager.GET_SIGNATURES);
+//	        Log.d("key", "2da");
+//	        for (Signature signature : info.signatures) {
+//	            MessageDigest md = MessageDigest.getInstance("SHA");
+//	            md.update(signature.toByteArray());
+//	            Log.d("YOURHASH KEY:",
+//	                    Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//	        }
+//	    } catch (NameNotFoundException e) {
+//	    	e.printStackTrace();
+//	    } catch (NoSuchAlgorithmException e) {
+//	    	e.printStackTrace();
+//	    }
 		
 		Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
 		Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
@@ -66,8 +66,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View arg0) {
-		switch (arg0.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		case R.id.BTNGalery:
 			startActivity(new Intent(this, FacebookAuthActivity.class));
 			break;
