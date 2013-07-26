@@ -149,6 +149,8 @@ public class FragmentFbSignInActivity extends Fragment implements
 		@Override
 		protected void onPostExecute(Void result) {
 			prefs.setOwnerId(owner != null ? owner.getOwner_id() : -1);
+			Log.d("user", user != null ? user.getId() + "" : "null");
+			Log.d("owner", owner != null ? owner.getOwner_id() + "" : "null");
 		}
 	}
 
