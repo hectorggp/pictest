@@ -191,7 +191,7 @@ public class FragmentFbSignInActivity extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.BTNGoToGalery) {
-			Log.d("Galery", "Go to galery");
+			Log.d("Galery ", "Go to galery");
 			Activity activity = getActivity();
 			if (activity != null)
 				getActivity().startActivity(
