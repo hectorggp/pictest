@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import pictest.objects.FbPerson;
 import pictest.objects.ServerOwner;
 import pictest.objects.ServerPhoto;
-import pictest.util.Encoder;
 import android.util.Log;
 
 public class ServerConnManager {
@@ -19,6 +18,7 @@ public class ServerConnManager {
 	private static final String LINK_CREATE_OWNER = "http://hectorggp.byethost18.com/ownerNew.php";
 	private static final String LINK_GET_OWNER_PHTOS = "http://hectorggp.byethost18.com/ownerPhotos.php";
 	private static final String LINK_CREATE_OWNER_PHOTO = "http://hectorggp.byethost18.com/ownerPhotosNew.php";
+	private static final String LINK_UPDATE_OWNER = "http://hectorggp.byethost18.com/ownerUpdate.php";
 
 	// create owner on server or only get information
 	public ServerOwner getOwner(FbPerson fbOwner) {
@@ -26,7 +26,6 @@ public class ServerConnManager {
 
 		// attempting to create new owner on server
 		svOwner.setFb_owner_id(fbOwner.getId());
-		svOwner.setPicture_base64(Encoder.encodeToString(fbOwner.getImage()));
 		JSONObject response = HttpHelper.sendData(LINK_CREATE_OWNER,
 				svOwner.getJSONObject());
 		Log.i("response getOwner", response.toString());
@@ -36,6 +35,7 @@ public class ServerConnManager {
 		try {
 			JSONObject jowner = HttpHelper.readJsonFromUrl(LINK_GET_OWNER
 					+ "?owner=" + fbOwner.getId());
+			jowner = jowner.getJSONArray("posts").getJSONObject(0).getJSONObject("post");
 			Log.i("jowner:", jowner.toString());
 			ret = new ServerOwner();
 			ret.setJSONObject(jowner);
@@ -73,5 +73,30 @@ public class ServerConnManager {
 		}
 		return ret;
 	}
+	
+	public boolean addPhoto(ServerPhoto photo) {
+		boolean ret = true;
+		JSONObject response = HttpHelper.sendData(LINK_CREATE_OWNER_PHOTO, photo.getJSONObject());
+		Log.d("json addPhoto", response + "");
+		try {
+			ret = response != null && response.getBoolean("result");
+		} catch (JSONException e) {
+			e.printStackTrace();
+			ret = false;
+		}
+		return ret;
+	}
 
+	public boolean updateAccount(ServerOwner owner) {
+		boolean ret = true;
+		JSONObject response = HttpHelper.sendData(LINK_UPDATE_OWNER, owner.getJSONObject());
+		Log.d("json updateAcc", response + "");
+		try {
+			ret = response != null && response.getBoolean("result");
+		} catch (JSONException e) {
+			e.printStackTrace();
+			ret = false;
+		}
+		return ret;
+	}
 }

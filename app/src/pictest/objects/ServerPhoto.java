@@ -8,13 +8,11 @@ public class ServerPhoto {
 	private static final String TAG_PHOTO_ID = "photo_id";
 	private static final String TAG_FB_PHOTO_ID = "fb_photo_id";
 	private static final String TAG_OWNER_ID = "owner_id";
-	private static final String TAG_PHOTO_BASE64 = "photo_base64";
 	private static final String TAG_PRICE = "price";
 
 	private long photo_id;
 	private long fb_photo_id;
 	private long owner_id;
-	private String photo_base64;
 	private double price;
 
 	public long getPhoto_id() {
@@ -41,14 +39,6 @@ public class ServerPhoto {
 		this.owner_id = owner_id;
 	}
 
-	public String getPhoto_base64() {
-		return photo_base64;
-	}
-
-	public void setPhoto_base64(String photo_base64) {
-		this.photo_base64 = photo_base64;
-	}
-
 	public double getPrice() {
 		return price;
 	}
@@ -66,9 +56,6 @@ public class ServerPhoto {
 			setOwner_id(jobject.getLong(TAG_OWNER_ID));
 		} catch (JSONException e) { ret = false; }
 		try {
-			setPhoto_base64(jobject.getString(TAG_PHOTO_BASE64));
-		} catch (JSONException e) { ret = false; }
-		try {
 			setPhoto_id(jobject.getLong(TAG_PHOTO_ID));
 		} catch (JSONException e) { ret = false; }
 		try {
@@ -84,9 +71,6 @@ public class ServerPhoto {
 		} catch (JSONException e) { }
 		try {
 			ret.put(TAG_OWNER_ID, getOwner_id());
-		} catch (JSONException e) { }
-		try {
-			ret.put(TAG_PHOTO_BASE64, getPhoto_base64());
 		} catch (JSONException e) { }
 		try {
 			ret.put(TAG_PHOTO_ID, getPhoto_id());

@@ -2,7 +2,10 @@ package pictest.activities;
 
 import java.util.regex.Pattern;
 
+import org.json.JSONException;
+
 import pictest.connection.FbConnManager;
+import pictest.connection.PayPalManager;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -13,8 +16,9 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.pictest.R;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -22,6 +26,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private static final String typeGoogle = "com.google";
 	private boolean hasFacebookAccount;
 	private boolean hasGoogleAccount;
+	private PayPalManager paypal;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,9 +73,45 @@ public class MainActivity extends Activity implements OnClickListener {
 			startActivity(new Intent(this, FbSignInActivity.class));
 			break;
 		case R.id.BTNPayPal:
-			Toast.makeText(getApplicationContext(), "PayPal", Toast.LENGTH_LONG)
-					.show();
+			paypal = new PayPalManager(this);
+		//ESTO ES DE EJEMPLO NADA MAS
+			paypal.buyPhoto(34, 666, 47757575747880L,
+					12.34);
 		}
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == Activity.RESULT_OK) {
+			PaymentConfirmation confirm = data
+					.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+			if (confirm != null) {
+				try {
+					Log.i("paymentExample", confirm.toJSONObject().toString(4));
+					paypal.savePayTransaction();
+					// TODO: send 'confirm' to your server for verification.
+					// see
+					// https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
+					// for more details.
+
+				} catch (JSONException e) {
+					Log.e("paymentExample",
+							"an extremely unlikely failure occurred: ", e);
+				}
+			}
+		} else if (resultCode == Activity.RESULT_CANCELED) {
+			Log.i("paymentExample", "The user canceled.");
+		} else if (resultCode == PaymentActivity.RESULT_PAYMENT_INVALID) {
+			Log.i("paymentExample",
+					"An invalid payment was submitted. Please see the docs.");
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if (paypal != null)
+			paypal.finishService();
+		super.onDestroy();
 	}
 
 }

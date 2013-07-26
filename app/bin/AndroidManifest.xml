@@ -10,6 +10,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- for most things, including card.io & paypal -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -25,9 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
+
         <activity
             android:name="pictest.activities.FbSignInActivity"
             android:label="@string/login_facebook_title" >
@@ -40,14 +45,32 @@
             android:name="com.pictest.FacebookAlbumsActivity"
             android:label="@string/albums_title" >
         </activity>
-        <activity 
+        <activity
             android:name="pictest.activities.GaleryActivity"
             android:label="@string/albums_title" >
         </activity>
-        <activity 
+        <activity
             android:name="pictest.activities.PhotoViewActivity"
-            android:label="@string/photo_view_title">
+            android:label="@string/photo_view_title" >
         </activity>
+        <activity 
+            android:name="pictest.activities.NewPhotoActivity"
+            android:label="@string/new_photo_title">
+        </activity>
+
+        <service
+            android:name="com.paypal.android.sdk.payments.PayPalService"
+            android:exported="false" />
+
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentCompletedActivity" />
+        <activity
+            android:name="io.card.payment.CardIOActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="io.card.payment.DataEntryActivity" />
     </application>
 
 </manifest>

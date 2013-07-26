@@ -15,7 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 public class HttpHelper {
-	
+
 	private static String readAll(Reader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		int cp;
@@ -40,15 +40,15 @@ public class HttpHelper {
 			is.close();
 		}
 	}
-	
+
 	public static Drawable LoadImageFromWebOperations(String url) {
-	    try {
-	        InputStream is = (InputStream) new URL(url).getContent();
-	        Drawable d = Drawable.createFromStream(is, "src name");
-	        return d;
-	    } catch (Exception e) {
-	        return null;
-	    }
+		try {
+			InputStream is = (InputStream) new URL(url).getContent();
+			Drawable d = Drawable.createFromStream(is, "src name");
+			return d;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public static JSONObject sendData(String url, JSONObject jsonObjSend) {
@@ -68,5 +68,5 @@ public class HttpHelper {
 		}
 		return ret;
 	}
-	
+
 }

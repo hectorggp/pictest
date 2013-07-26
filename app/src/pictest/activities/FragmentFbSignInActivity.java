@@ -72,15 +72,14 @@ public class FragmentFbSignInActivity extends Fragment implements
 				.findViewById(R.id.authButton);
 		authButton.setFragment(this);
 		authButton.setReadPermissions(Arrays.asList(getActivity()
-				.getResources().getStringArray(R.array.facebook_permissions)));
-
+				.getResources().getStringArray(R.array.facebook_read_permissions)));
 		return view;
 	}
 
 	private void onSessionStateChange(Session session, SessionState state,
 			Exception exception) {
 		if (state.isOpened()) {
-			Log.i(TAG, "Logged in...");
+			Log.i(TAG, " Logged in...");
 			accessToken = session.getAccessToken();
 			sharedManager.setFbAccessToken(accessToken);
 			BTNGoToGalery.setEnabled(true);
@@ -95,6 +94,8 @@ public class FragmentFbSignInActivity extends Fragment implements
 					getActivity().getResources().getString(
 							R.string.login_facebook_title));
 		}
+		if(exception != null)
+			exception.printStackTrace();
 	}
 
 	@Override
@@ -149,6 +150,7 @@ public class FragmentFbSignInActivity extends Fragment implements
 		@Override
 		protected void onPostExecute(Void result) {
 			prefs.setOwnerId(owner != null ? owner.getOwner_id() : -1);
+			prefs.setPpOwnerId(owner != null ? owner.getPp_owner_id() : null);
 			Log.d("user", user != null ? user.getId() + "" : "null");
 			Log.d("owner", owner != null ? owner.getOwner_id() + "" : "null");
 		}

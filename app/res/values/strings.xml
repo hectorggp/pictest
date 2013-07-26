@@ -8,12 +8,14 @@
     <string name="explore">Explore photos</string>
     <string name="item_share">Share</string>
     <string name="item_set_price">Set price</string>
+    <string name="item_load_image">Share image in album</string>
 
     <!-- TITLES -->
     <string name="app_name_title" translatable="false">PicTest</string>
     <string name="login_facebook_title" translatable="false">Facebook</string>
     <string name="albums_title" translatable="false">Galery</string>
     <string name="photo_view_title" translatable="false">Choose a photo</string>
+    <string name="new_photo_title" translatable="false">Share image</string>
 
     <!-- ERRORS -->
     <string name="ERR_AUTH_FB">Can\'t get your information from facebook session</string>
