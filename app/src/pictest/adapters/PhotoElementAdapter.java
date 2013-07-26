@@ -2,8 +2,12 @@ package pictest.adapters;
 
 import java.util.List;
 
+import org.holoeverywhere.widget.Toast;
+
+import pictest.activities.PhotoViewActivity;
 import pictest.objects.FbAlbum;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import at.technikum.mti.fancycoverflow.FancyCoverFlow;
 import at.technikum.mti.fancycoverflow.FancyCoverFlowAdapter;
 
@@ -66,21 +69,33 @@ public class PhotoElementAdapter extends FancyCoverFlowAdapter {
 		}
 		ViewHolder holder = (ViewHolder) view.getTag();
 		holder.TXTAlbumName.setText(album.getName());
-		Drawable cover = album.getFbPhotoCover() != null &&
-				album.getFbPhotoCover().getImage() != null ? 
-				album.getFbPhotoCover().getImage() : defaultImage;
+		Drawable cover = album.getFbPhotoCover() != null
+				&& album.getFbPhotoCover().getImage() != null ? album
+				.getFbPhotoCover().getImage() : defaultImage;
 		if (cover == null)
 			Log.e("ERR", "cover is null");
 		holder.IMVContent.setImageDrawable(cover);
 		holder.TXTAlbumName.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(context, data.get(position).getName(),
-						Toast.LENGTH_LONG).show();
+				if (album.getFbPhotoCover() != null
+						&& album.getFbPhotoCover().getImage() != null) {
+					Log.d("album", album.getName());
+					PhotoViewActivity.currentAlbum = album;
+					context.startActivity(new Intent(context,
+							PhotoViewActivity.class));
+				} else {
+					Log.e("ERRor", "se intenta acceder a album no cargado");
+					Toast.makeText(
+							context,
+							context.getResources().getString(
+									R.string.WRN_NO_LOAD_ALBUM),
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		});
-		view.setLayoutParams(new FancyCoverFlow.LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT));
+		view.setLayoutParams(new FancyCoverFlow.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		return view;
 	}
 

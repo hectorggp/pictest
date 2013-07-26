@@ -44,6 +44,10 @@
             android:name="pictest.activities.GaleryActivity"
             android:label="@string/albums_title" >
         </activity>
+        <activity 
+            android:name="pictest.activities.PhotoViewActivity"
+            android:label="@string/photo_view_title">
+        </activity>
     </application>
 
 </manifest>

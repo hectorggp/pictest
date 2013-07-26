@@ -10,11 +10,13 @@ public class FbPhoto {
 	public static final String TAG_SOURCE = "source";
 	public static final String TAG_HEIGHT = "height";
 	public static final String TAG_WIDTH = "width";
+	public static final String TAG_LINK = "link";
 
 	private long id;
 	private String source;
 	private int height;
 	private int width;
+	private String link;
 	private Drawable image;
 
 	public long getId() {
@@ -48,6 +50,14 @@ public class FbPhoto {
 	public void setWidth(int width) {
 		this.width = width;
 	}
+	
+	public String getLink() {
+		return link;
+	}
+	
+	public void setLink(String link) {
+		this.link = link;
+	}
 
 	public boolean setJSONObject(JSONObject jobject){
 		boolean ret = true;
@@ -62,6 +72,9 @@ public class FbPhoto {
 		} catch (JSONException e) { ret = false; }
 		try {
 			this.setWidth(jobject.getInt(TAG_WIDTH));
+		} catch (JSONException e) { ret = false; }
+		try {
+			this.setLink(jobject.getString(TAG_LINK));
 		} catch (JSONException e) { ret = false; }
 		return ret;
 	}

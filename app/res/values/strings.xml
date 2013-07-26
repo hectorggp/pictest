@@ -6,17 +6,21 @@
     <string name="app_id">137883406418849</string>
     <string name="OAuth_Exception">OAuthException</string>
     <string name="explore">Explore photos</string>
+    <string name="item_share">Share</string>
+    <string name="item_set_price">Set price</string>
 
     <!-- TITLES -->
     <string name="app_name_title" translatable="false">PicTest</string>
     <string name="login_facebook_title" translatable="false">Facebook</string>
     <string name="albums_title" translatable="false">Galery</string>
+    <string name="photo_view_title" translatable="false">Choose a photo</string>
 
     <!-- ERRORS -->
     <string name="ERR_AUTH_FB">Can\'t get your information from facebook session</string>
 
     <!-- WARNINGS -->
     <string name="WRN_NO_ALL_ALBUMS">Did not load all albums\nyou can try again</string>
+    <string name="WRN_NO_LOAD_ALBUM">Album has not loaded, please wait</string>
 
     <!-- COLORS -->
     <color name="black">#000000</color>

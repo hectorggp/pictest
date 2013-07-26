@@ -51,5 +51,22 @@ public class HttpHelper {
 	    }
 	}
 
-
+	public static JSONObject sendData(String url, JSONObject jsonObjSend) {
+		String params = jsonObjSend.toString();
+		JSONObject ret = null;
+		try {
+			url += "?json=" + params;
+			Log.i("url:", url);
+			ret = readJsonFromUrl(url);
+			Log.i("jsonobject", ret.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
 }

@@ -24,30 +24,35 @@ public class GaleryActivity extends SherlockActivity {
 	private Activity activity;
 	private FbConnManager connManager;
 	private PhotoElementAdapter adapter;
+	private static boolean canRun;
+	private ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_album_fb);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
 
 		FCFAlbumsView = (FancyCoverFlow) findViewById(R.id.FCFAlbumsView);
 		activity = this;
-		new GetAlbums().execute();
-		new GetAlbumsCovers().execute();
 	}
 
 	private class GetAlbumsCovers extends AsyncTask<Void, Void, Void> {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			int i = 0;
-			for (FbAlbum album : albums) {
+			for(int i = 0; i < albums.size(); i ++){
+				FbAlbum album = albums.get(i);
 				connManager.getCoverImage(album);
-				Log.d("loading", album.getName() + " all right : " + ++i
+				if (album.getFbPhotoCover().getImage() == null) {
+					Log.e("removio", "cover id: " + album.getCover_photo());
+				}
+				Log.d("loading", album.getName() + "  all right : " + i
 						+ " - " + album.getFbPhotoCover().getImage());
 				publishProgress();
+				if (!canRun)
+					break;
 			}
 			return null;
 		}
@@ -57,12 +62,13 @@ public class GaleryActivity extends SherlockActivity {
 			synchronized (adapter) {
 				adapter.notifyDataSetChanged();
 			}
+			if (dialog != null && dialog.isShowing())
+				dialog.dismiss();
 		}
 
 	}
 
 	private class GetAlbums extends AsyncTask<Void, Integer, Void> {
-		ProgressDialog dialog;
 		SharedPreferencesManager prefs;
 
 		@Override
@@ -79,7 +85,9 @@ public class GaleryActivity extends SherlockActivity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
+			Log.d("other", "");
 			albums = connManager.getAlbumsNoImage();
+			Log.d("other", "");
 			return null;
 		}
 
@@ -91,14 +99,34 @@ public class GaleryActivity extends SherlockActivity {
 		}
 
 	}
-	
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		albums.clear();
+		adapter.notifyDataSetChanged();
+		System.gc();
+		canRun = false;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		canRun = true;
+		new GetAlbums().execute();
+		new GetAlbumsCovers().execute();
+	}
+
+	public static void setCanRun(boolean e) {
+		canRun = e;
+	}
 }

@@ -5,7 +5,9 @@ import java.util.Arrays;
 import org.holoeverywhere.app.ProgressDialog;
 
 import pictest.connection.FbConnManager;
+import pictest.connection.ServerConnManager;
 import pictest.objects.FbPerson;
+import pictest.objects.ServerOwner;
 import pictest.util.SharedPreferencesManager;
 import android.app.Activity;
 import android.content.Intent;
@@ -41,6 +43,8 @@ public class FragmentFbSignInActivity extends Fragment implements
 	private Button BTNGoToGalery;
 	private String accessToken;
 	private SharedPreferencesManager sharedManager;
+	private FbPerson user;
+	private ServerOwner owner;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class FragmentFbSignInActivity extends Fragment implements
 				&& Session.getActiveSession().isOpened()) {
 			accessToken = sharedManager.getFbAccessToken();
 			new GetUserPicture().execute();
+			new GetOwnerServer().execute();
 		}
 	}
 
@@ -80,6 +85,7 @@ public class FragmentFbSignInActivity extends Fragment implements
 			sharedManager.setFbAccessToken(accessToken);
 			BTNGoToGalery.setEnabled(true);
 			new GetUserPicture().execute();
+			new GetOwnerServer().execute();
 		} else if (state.isClosed()) {
 			Log.i(TAG, "Logged out...");
 			BTNGoToGalery.setEnabled(false);
@@ -128,9 +134,26 @@ public class FragmentFbSignInActivity extends Fragment implements
 		uiHelper.onSaveInstanceState(outState);
 	}
 
+	private class GetOwnerServer extends AsyncTask<Void, Void, Void> {
+		ServerConnManager serverConn = new ServerConnManager();
+		SharedPreferencesManager prefs = new SharedPreferencesManager(
+				getActivity());
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			if (user != null)
+				owner = serverConn.getOwner(user);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			prefs.setOwnerId(owner != null ? owner.getOwner_id() : -1);
+		}
+	}
+
 	private class GetUserPicture extends AsyncTask<Void, Void, Void> {
 		FbConnManager fbConn;
-		FbPerson user;
 		ProgressDialog dialog;
 
 		@Override
@@ -150,9 +173,10 @@ public class FragmentFbSignInActivity extends Fragment implements
 
 		@Override
 		protected void onPostExecute(Void result) {
-			IMVUserPicture.setBackground(user.getImage() != null ? user
-					.getImage() : getActivity().getResources().getDrawable(
-					R.drawable.ic_launcher));
+			IMVUserPicture.setBackground(user != null
+					&& user.getImage() != null ? user.getImage()
+					: getActivity().getResources().getDrawable(
+							R.drawable.ic_launcher));
 			Activity activity = getActivity();
 			if (activity != null)
 				activity.setTitle("Hello " + user.getName() + "!");
